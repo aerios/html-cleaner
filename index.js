@@ -14,8 +14,24 @@ Server.listen(REST_API_PORT, function( ) {
 Server.post("/clean-html", function( req, res ) {
 	var body = req.body
 	var content = body.content
-	var result = HTMLParser.parse(content)
+	var result = HTMLParser.parseHtml(content)
 	res.json({
 		result : result
+	})
+})
+
+Server.post("/clean-url", function( req, res ) {
+	var body = req.body
+	var url = body.url
+	HTMLParser.parseUrl(url)
+	.then(function( result ) {
+		res.json({
+			result : result
+		})
+	})
+	.catch(function( reason ) {
+		res.status(500).json({
+			error : reason + ""
+		})
 	})
 })
