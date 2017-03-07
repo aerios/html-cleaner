@@ -11,7 +11,6 @@ function parseUrl(url) {
 	}
 	return new Promise(function( resolve,reject){
 		Request(url,function(err,response,body){
-			console.log(body)
 			if ( !body ) {
 				resolve("")
 			} else {
