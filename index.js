@@ -15,9 +15,7 @@ Server.post("/clean-html", function( req, res ) {
 	var body = req.body
 	var content = body.content
 	var result = HTMLParser.parseHtml(content)
-	res.json({
-		result : result
-	})
+	res.json( result )
 })
 
 Server.post("/clean-url", function( req, res ) {
@@ -25,9 +23,7 @@ Server.post("/clean-url", function( req, res ) {
 	var url = body.url
 	HTMLParser.parseUrl(url)
 	.then(function( result ) {
-		res.json({
-			result : result
-		})
+		res.json( result )
 	})
 	.catch(function( reason ) {
 		res.status(500).json({
