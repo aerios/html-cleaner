@@ -46,7 +46,7 @@ function parseHtml(str){
 		var content = $item.attr("content")
 		var property = $item.attr("property")
 		var realName = property ? property : name
-		if ( realName )
+		if ( realName && content )
 		metadataList.push({
 			name : realName,
 			value : content
