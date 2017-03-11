@@ -9,11 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "cheerio": "^0.22.0",
     "express": "^4.15.2",
+    "phantom": "^4.0.0",
     "request": "^2.80.0",
     "sugar": "^2.0.4",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "uuid": "^3.0.1"
   }
 }

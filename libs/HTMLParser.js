@@ -2,8 +2,22 @@ var Cheerio = require("cheerio")
 var underscore = require("underscore")
 var Request = require("request")
 var Url = require("url")
+var uuid = require("uuid/v4")
+var Renderer = require("./Renderer")
+
 
 var Module = {}
+
+function renderToPng ( str ) {
+	var fileName = uuid() + ".png"
+	var outputPath = __dirname + "/../public/" + fileName
+	return Renderer.render(str,outputPath).then( function( ) {
+		return {
+			fileName : fileName,
+			filePath : outputPath
+		}
+	})
+}
 
 function parseUrl(url) {
 	if ( url.indexOf("http") < 0 ) {
@@ -17,8 +31,22 @@ function parseUrl(url) {
 				resolve( parseHtml( body ))
 			}
 		})	
-	})
-	
+	})	
+}
+
+function renderUrl( url ) {
+	if ( url.indexOf("http") < 0 ) {
+		url = "http://"+url
+	}
+	return new Promise(function( resolve,reject){
+		Request(url,function(err,response,body){
+			if ( !body ) {
+				reject( err )
+			} else {
+				renderToPng( body ).then( resolve ). catch( reject )
+			}
+		})	
+	})	
 }
 
 function cleanTrailingWhitespace( str ) {
@@ -61,4 +89,5 @@ function parseHtml(str){
 
 Module.parseHtml = parseHtml
 Module.parseUrl = parseUrl
+Module.renderUrl = renderUrl
 module.exports = Module
